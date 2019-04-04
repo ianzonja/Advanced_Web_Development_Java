@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="Parkiranje">
+      <implementation-class>org.foi.aplikacija_1.servisi.Parkiranje</implementation-class>
+      <wsdl-url>http://nwtis.foi.hr:8080/NWTiS_2018/Parkiranje?wsdl</wsdl-url>
+      <local-wsdl-file>nwtis.foi.hr_8080/NWTiS_2018/Parkiranje.wsdl</local-wsdl-file>
+      <service-name>Parkiranje</service-name>
+      <port-name>ParkiranjePort</port-name>
+      <package-name>org.foi.nwtis.dkermek.ws.serveri</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>fork</wsimport-option-name>
+          <wsimport-option-value>false</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="MeteoSoap">
+      <implementation-class>org.foi.aplikacija_1.servisi.MeteoSoap</implementation-class>
+    </service>
+    <service name="Meteo">
+      <implementation-class>org.foi.aplikacija_1.servisi.Meteo</implementation-class>
+    </service>
+  </services>
+  <clients>
+    <client name="Parkiranje">
+      <wsdl-url>file:/C:/Users/Ian/Documents/NetBeansProjects/ianzonja_aplikacija_1/src/conf/xml-resources/web-services/Parkiranje/wsdl/nwtis.foi.hr_8080/NWTiS_2018/Parkiranje.wsdl</wsdl-url>
+      <local-wsdl-file>Parkiranje.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">org.foi.aplikacija_1.servisi_client</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>fork</wsimport-option-name>
+          <wsimport-option-value>false</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>wsdlLocation</wsimport-option-name>
+          <wsimport-option-value>file:/C:/Users/Ian/Documents/NetBeansProjects/ianzonja_aplikacija_1/src/conf/xml-resources/web-services/Parkiranje/wsdl/nwtis.foi.hr_8080/NWTiS_2018/Parkiranje.wsdl</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>package</wsimport-option-name>
+          <wsimport-option-value>org.foi.aplikacija_1.servisi_client</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </client>
+  </clients>
+  <jsr109>true</jsr109>
+</jax-ws>

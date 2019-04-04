@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <ui:composition template="./predlozak_prijavljen.xhtml">
+            <ui:define name="top">
+                NWTiS - Pregled parkiralista
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <h:panelGroup>
+                        <h:outputText value="ID"/>
+                        <h:inputText id="idPark" value="#{pregledParkiralista.id}"/>
+                        <br/>
+                        <h:outputText value="Naziv"/>
+                        <h:inputText id="nazivPark" value="#{pregledParkiralista.naziv}"/>
+                        <br/>
+                        <h:outputText value="Adresa"/>
+                        <h:inputText id="adresaPark" value="#{pregledParkiralista.adresa}"/>
+                        <br/>
+                        <h:outputText value="Kapacitet"/>
+                        <h:inputText id="kapacitetPark" value="#{pregledParkiralista.kapacitet}"/>
+                        <br/>
+                        <h:commandButton value="Dodaj parkiraliste" action="#{pregledParkiralista.dodajParkiraliste()}">
+                            <f:ajax execute="nazivPark adresaPark kapacitetPark" render="tablicaParkiralista greska"/>
+                        </h:commandButton>
+                        <h:commandButton value="Obrisi parkiraliste" action="#{pregledParkiralista.obrisiParkiraliste()}">
+                            <f:ajax execute="idPark" render="greska"/>
+                        </h:commandButton>
+                    </h:panelGroup>
+                    <br/>
+                    <h:commandButton value="Dohvati parkiralista" action="#{pregledParkiralista.dajListuParkiralista()}">
+                        <f:ajax render="tablicaParkiralistaGroup tablicaMeteoGroup greska stranicenjePrethodna stranicenjeSljedeca tablicaVozilaGroup stranicenjeVozilaPrethodna stranicenjeVozilaSljedeca"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:commandButton value="Zadnji meteo podaci" action="#{pregledParkiralista.dajZadnjeMeteoPodatke()}">
+                        <f:ajax execute="nazivPark" render="tablicaMeteoGroup tablicaParkiralistaGroup tablicaVozilaGroup greska stranicenjeVozilaPrethodna stranicenjeVozilaSljedeca stranicenjePrethodna stranicenjeSljedeca"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:commandButton value="Vazeci meteo podaci" action="#{pregledParkiralista.dajVazecePodatke()}">
+                        <f:ajax execute="nazivPark" render="tablicaMeteoGroup tablicaParkiralistaGroup tablicaVozilaGroup greska stranicenjeVozilaPrethodna stranicenjeVozilaSljedeca stranicenjePrethodna stranicenjeSljedeca"/>
+                    </h:commandButton>
+                    <br/>
+                    <h:commandButton value="Aktiviraj" action="#{pregledParkiralista.aktivirajParkiraliste()}">
+                        <f:ajax execute="idPark" render="greska"/>
+                    </h:commandButton>
+                    <h:commandButton value="Blokiraj" action="#{pregledParkiralista.blokirajParkiraliste()}">
+                        <f:ajax execute="idPark" render="greska"/>
+                    </h:commandButton>
+                    <h:commandButton value="Daj vozila" action="#{pregledParkiralista.dajListuVozila()}">
+                        <f:ajax execute="idPark" render="tablicaMeteoGroup tablicaVozilaGroup tablicaParkiralistaGroup greska stranicenjeVozilaPrethodna stranicenjeVozilaSljedeca stranicenjePrethodna stranicenjeSljedeca"/>
+                    </h:commandButton>
+                    <h:panelGroup id="greska">
+                        <h:outputText rendered="#{pregledParkiralista.prikaziGresku}" value="#{pregledParkiralista.porukaGreske}"/>
+                    </h:panelGroup>
+                    <h:panelGroup id="stranicenjePrethodna">
+                        <h:commandButton value="Prethodna stranica" action="#{pregledParkiralista.dajPrethodnu()}" rendered="#{pregledParkiralista.prikaziPrethodnu}">
+                            <f:ajax render="tablicaParkiralistaGroup stranicenjeSljedeca stranicenjePrethodna"/>
+                        </h:commandButton>
+                    </h:panelGroup>
+                    <h:panelGroup id="stranicenjeSljedeca">
+                        <h:commandButton value="Sljedeca stranica" action="#{pregledParkiralista.dajSljedecu()}" rendered="#{pregledParkiralista.prikaziSljedecu}">
+                            <f:ajax render="tablicaParkiralistaGroup stranicenjePrethodna stranicenjeSljedeca"/>
+                        </h:commandButton>
+                    </h:panelGroup>
+                    <h:panelGroup id="stranicenjeVozilaPrethodna">
+                        <h:commandButton value="Prethodna stranica" action="#{pregledParkiralista.dajPrethodnuVozila()}" rendered="#{pregledParkiralista.prikaziPrethodnuVozila}">
+                            <f:ajax render="tablicaVozilaGroup stranicenjeVozilaSljedeca stranicenjeVozilaPrethodna"/>
+                        </h:commandButton>
+                    </h:panelGroup>
+                    <h:panelGroup id="stranicenjeVozilaSljedeca">
+                        <h:commandButton value="Sljedeca stranica" action="#{pregledParkiralista.dajSljedecuVozila()}" rendered="#{pregledParkiralista.prikaziSljedecuVozila}">
+                            <f:ajax render="tablicaVozilaGroup stranicenjeVozilaSljedeca stranicenjeVozilaPrethodna"/>
+                        </h:commandButton>
+                    </h:panelGroup>
+                    <h:panelGroup id="tablicaParkiralistaGroup">
+                        <h:dataTable id="tablicaParkiralista" rendered="#{pregledParkiralista.prikaziListuParkiralista}" value="#{pregledParkiralista.listaParkiralista}" var="p" >
+                            <h:column>
+                                <f:facet name="header">ID</f:facet>
+                                <h:outputText value="#{p.id}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Naziv</f:facet>
+                                <h:outputText value="#{p.naziv}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Adresa</f:facet>
+                                <h:outputText value="#{p.adresa}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Latitude</f:facet>
+                                <h:outputText value="#{p.lokacija.latitude}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Longitude</f:facet>
+                                <h:outputText value="#{p.lokacija.longitude}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Kapacitet</f:facet>
+                                <h:outputText value="#{p.kapacitet}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Status</f:facet>
+                                <h:outputText value="#{p.status}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:panelGroup>
+                    
+                    <h:panelGroup id="tablicaVozilaGroup">
+                        <h:dataTable id="tablicaVozila" rendered="#{pregledParkiralista.prikaziListuVozila}" value="#{pregledParkiralista.listaVozila}" var="v" >
+                            <h:column>
+                                <f:facet name="header">Akcija</f:facet>
+                                <h:outputText value="#{v.akcija}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Registracija</f:facet>
+                                <h:outputText value="#{v.registracija}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Parkiraliste</f:facet>
+                                <h:outputText value="#{v.parkiraliste}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:panelGroup>
+
+                    <h:panelGroup id="tablicaMeteoGroup">
+                        <h:dataTable id="tablicaMeteo" rendered="#{pregledParkiralista.prikaziListuMeteo}" value="#{pregledParkiralista.listaMeteo}" var="m" >
+                            <h:column>
+                                <f:facet name="header">Vrijeme</f:facet>
+                                <h:outputText value="#{m.weatherValue}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Opis vremena</f:facet>
+                                <h:outputText value="#{m.weatherIcon}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Temperatura</f:facet>
+                                <h:outputText value="#{m.temperatureValue}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Temp min</f:facet>
+                                <h:outputText value="#{m.temperatureMin}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Temp max</f:facet>
+                                <h:outputText value="#{m.temperatureMax}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Vlaga</f:facet>
+                                <h:outputText value="#{m.humidityValue}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Tlak</f:facet>
+                                <h:outputText value="#{m.pressureValue}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Smjer vjetra</f:facet>
+                                <h:outputText value="#{m.windDirectionValue}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:panelGroup>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>
